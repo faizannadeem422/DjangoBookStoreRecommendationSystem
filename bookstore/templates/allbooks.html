@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Books</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #e0e7ff 0%, #f4f6fb 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 16px;
+        }
+
+        .book-card {
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(80, 112, 255, 0.10), 0 1.5px 6px rgba(0, 0, 0, 0.04);
+            padding: 28px 32px 20px 32px;
+            margin-bottom: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+        }
+
+        .book-card h1 {
+            font-size: 1.4rem;
+            color: #2d3a4b;
+            margin: 0 0 8px 0;
+        }
+
+        .book-card p {
+            margin: 2px 0;
+            color: #4b5563;
+            font-size: 1.05rem;
+        }
+
+        .actions {
+            margin-top: 12px;
+        }
+
+        .actions form,
+        .actions a {
+            display: inline-block;
+        }
+
+        .actions button,
+        .actions a>button {
+            background: linear-gradient(90deg, #4f8cff 60%, #2563eb 100%);
+            color: #fff;
+            padding: 9px 22px;
+            border: none;
+            border-radius: 7px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.18s, box-shadow 0.18s;
+            margin: 0 6px 0 0;
+            box-shadow: 0 2px 8px rgba(79, 140, 255, 0.08);
+        }
+
+        .actions button:hover,
+        .actions a>button:hover {
+            background: linear-gradient(90deg, #2563eb 60%, #4f8cff 100%);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.13);
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                max-width: 98vw;
+                padding: 0 2vw;
+            }
+
+            .book-card {
+                padding: 16px 8px 12px 8px;
+            }
+
+            .book-card h1 {
+                font-size: 1.1rem;
+            }
+
+            .actions button,
+            .actions a>button {
+                font-size: 0.95rem;
+                padding: 7px 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a href="{% url 'home-route' %}" class="home-btn" style="position:absolute;left:24px;top:24px;">Home</a>
+    <div class="container">
+        {% for book in books %}
+        <div class="book-card">
+            <h1>{{ book.book_title }}</h1>
+            <p><strong>Author:</strong> {{ book.book_author }}</p>
+            <p><strong>Publisher:</strong> {{ book.book_publisher }}</p>
+            <p><strong>Price:</strong> {{ book.book_price }}</p>
+            <p><strong>Category:</strong> {{ book.category }}</p>
+            <p><strong>Added by:</strong> {{ book.user.username }}</p>
+            <div class="actions">
+                <form action="{% url 'delete-book' book.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Delete</button>
+                </form>
+                <a href="{% url 'update-a-book' book.id %}">
+                    <button type="button">Update Books</button>
+                </a>
+                <a href="{% url 'view-book' book.id %}">
+                    <button type="button">Open Book</button>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

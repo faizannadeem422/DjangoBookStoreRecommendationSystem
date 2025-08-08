@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(120deg, #e0e7ff 0%, #f4f6fb 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .add-container {
+            max-width: 420px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(80, 112, 255, 0.10), 0 1.5px 6px rgba(0,0,0,0.04);
+            padding: 36px 36px 28px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h2 {
+            text-align: center;
+            color: #2d3a4b;
+            margin-bottom: 28px;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+        }
+        form {
+            width: 100%;
+        }
+        form p {
+            margin-bottom: 18px;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid #cfd8dc;
+            border-radius: 7px;
+            font-size: 1.05rem;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            outline: none;
+            transition: border 0.18s;
+        }
+        input[type="text"]:focus, input[type="number"]:focus, select:focus {
+            border: 1.5px solid #4f8cff;
+        }
+        button[type="submit"] {
+            background: linear-gradient(90deg, #4f8cff 60%, #2563eb 100%);
+            color: #fff;
+            padding: 11px 28px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1.08rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.18s, box-shadow 0.18s;
+            margin-top: 10px;
+            box-shadow: 0 2px 8px rgba(79,140,255,0.08);
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #2563eb 60%, #4f8cff 100%);
+            box-shadow: 0 4px 16px rgba(37,99,235,0.13);
+        }
+        .error-message {
+            color: #e11d48;
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 7px;
+            padding: 10px 18px;
+            margin-bottom: 18px;
+            width: 100%;
+        }
+        @media (max-width: 600px) {
+            .add-container {
+                max-width: 98vw;
+                padding: 18px 4vw 18px 4vw;
+            }
+            h2 {
+                font-size: 1.1rem;
+            }
+            button[type="submit"] {
+                font-size: 0.98rem;
+                padding: 9px 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="add-container">
+        <a href="{% url 'home-route' %}" class="home-btn">Home</a>
+        <h2>Add A Book</h2>
+        {% if error_message %}
+            <div class="error-message">{{ error_message }}</div>
+        {% endif %}
+        {% if form.errors %}
+            <div class="error-message">
+                <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</body>
+
+</html>
