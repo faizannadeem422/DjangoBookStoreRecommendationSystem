@@ -1,0 +1,89 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pdb
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Django
+*.log
+*.pot
+*.pyc
+*.mo
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+local_settings.py
+.env
+.env.*
+*.env
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+.venv*/  # in case of multiple venvs like `.venv3.11/`
+pip-log.txt
+
+# VSCode
+.vscode/
+.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Migrations (Optional: Keep if you want to track migrations manually)
+**/migrations/*.pyc
+**/migrations/__pycache__/
+# Uncomment the line below if you do not want to commit migration files:
+# **/migrations/*.py
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Test & debug
+.tox/
+.pytest_cache/
+testdb.sqlite3
+*.log
+debug.log
+
+# MyPy
+.mypy_cache/
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# Sentry CLI
+.sentryclirc
+
+# Others
+*.swp
+*.swo
+*.bak
+*.tmp
